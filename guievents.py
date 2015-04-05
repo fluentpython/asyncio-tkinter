@@ -18,7 +18,7 @@ class GuiEventLoop(BaseEventLoop):
         """Starts the I/O event loop which we defer to for doing I/O running on another thread"""
         self._event_loop_started = threading.Lock()
         self._event_loop_started.acquire()
-        threading.Thread(None, self._io_event_loop_thread).start()
+        threading.Thread(None, self._io_event_loop_thread, daemon=True).start()
         self._event_loop_started.acquire()
 
     def _io_event_loop_thread(self):
